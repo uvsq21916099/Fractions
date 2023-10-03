@@ -71,7 +71,7 @@ public class Main {
         final Fraction UN = new Fraction(1);
 
         Fraction x = new Fraction(5,8);
-        System.out.println(x.doubleValue());
+        assert x.doubleValue() == 0.625;
         Fraction y = new Fraction(10,16);
 
         assert x.equals(y) : "Les 2 fractions ne sont pas égales";  
