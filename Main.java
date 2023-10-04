@@ -1,4 +1,4 @@
-class Fraction {
+class Fraction extends Number implements Comparable<Fraction> {
     int numerateur;
     int denominateur;
 
@@ -30,23 +30,57 @@ class Fraction {
     }
 
     @Override
-    public boolean equals(Object o){
-        if (!(o instanceof Fraction)) {
-            System.out.println("o n'est pas une fraction");
-            return false;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-        Fraction f = (Fraction) o;
-        if (this.doubleValue()==f.doubleValue()){
+        if (!(o instanceof Fraction)) {
+            return false;
+        } 
+        Fraction f = (Fraction)o;
+        if (this.doubleValue() == f.doubleValue()) {
             return true;
         } else {
-            System.out.println("o != f");
             return false;
         }
+
+    }
+
+    @Override
+    public int compareTo(Fraction o){
+        double ici = this.doubleValue();
+        double autre = o.doubleValue();
+        if (ici > autre) {
+            return 1;
+        } else if (ici < autre) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int intValue() {
+        return this.numerateur/this.denominateur;
+    }
+
+    @Override
+    public float floatValue() {
+        float f1 = this.numerateur;
+        float f2 = this.denominateur;
+        return f1/f2;
+    }
+
+    @Override
+    public long longValue() {
+        long l1 = this.numerateur;
+        long l2 = this.denominateur;
+        return l1/l2;
     }
 
     public Fraction add(Fraction f) {
         if (this.denominateur == f.denominateur) {
-            int num = this.numerateur + f.denominateur;
+            int num = this.numerateur + f.numerateur;
             Fraction x = new Fraction(num,this.denominateur);
             return x;
         } else {
@@ -63,9 +97,7 @@ class Fraction {
 }
 
 public class Main {
-    public static void main(String[] args){
-        String jesui = Fraction.quisuije();
-        System.out.println(jesui);
+    public static void main(String[] args) {
 
         final Fraction ZERO = new Fraction();
         final Fraction UN = new Fraction(1);
@@ -73,8 +105,8 @@ public class Main {
         Fraction x = new Fraction(5,8);
         assert x.doubleValue() == 0.625;
         Fraction y = new Fraction(10,16);
-
-        assert x.equals(y) : "Les 2 fractions ne sont pas égales";  
+        assert x.doubleValue() == y.doubleValue();
+        
 
         }
 }
